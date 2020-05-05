@@ -27,6 +27,7 @@ export class EditarComponent implements OnInit {
     this.buscaePopulaCliente(this.id);
   }
 
+  //Busca o cliente no banco de dados por ID e popula o formulario reativo
   buscaePopulaCliente(id: number) {
     this.clinicaService.obterClientesPorId(id).subscribe(cliente => 
       {
@@ -49,6 +50,7 @@ export class EditarComponent implements OnInit {
     } );
   }
 
+  // edita o cliente no banco ao aperta o botão editar
   editarCliente(){
 
     this.cliente.nome = this.FormGroupCliente.get('nome').value;
@@ -70,7 +72,7 @@ export class EditarComponent implements OnInit {
   
   }
   
-
+//habilita informação como snack na tela com tempo de determinado
   openSnackBar(mensagem: string, acao: string) {
   this._snackBar.open(mensagem, acao, {
     duration: 2000,

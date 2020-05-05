@@ -28,3 +28,34 @@
     }
   } */
   
+
+  mat-sidenav-container{
+    height: 100%;
+  }
+
+  mat-sidenav, mat-sidenav-content{
+    padding: 16px;
+  }
+
+  mat-sidenav{
+    background-color:cadetblue;
+    width: 200px;
+  }
+
+  .simple-text {
+    text-transform: uppercase;
+    padding: 5px 0px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+    overflow: hidden;
+    text-align: center;
+    display: block;
+  }
+
+  p {
+    float: left;
+    font-size: 20px;
+    margin: 10px 10px;
+  }
