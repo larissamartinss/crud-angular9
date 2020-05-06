@@ -16,6 +16,7 @@ export class CadastrarComponent implements OnInit {
   FormGroupCliente : FormGroup;
   cliente : Cliente;
   cep : string;
+  cpf : string;
 
 
   constructor(private formBuilder: FormBuilder, private service: ClinicaService,
@@ -61,6 +62,7 @@ export class CadastrarComponent implements OnInit {
     cliente.uf = this.FormGroupCliente.get("uf").value;
     cliente.localidade = this.FormGroupCliente.get("localidade").value;
     cliente.numero = this.FormGroupCliente.get("numero").value;
+    cliente.complemento = this.FormGroupCliente.get("complemento").value;
   
 
 
@@ -85,6 +87,7 @@ salvarCliente(){
   }
 }
 
+
 buscarCep(){
   this.cep = this.FormGroupCliente.get("cep").value
 
@@ -99,6 +102,15 @@ buscarCep(){
 
   })
 
+}
+validaCpf(){
+  this.cpf = this.FormGroupCliente.get("cpf").value
+
+  this.service.obterClientePorCpf(this.cpf).subscribe( cpf =>{
+    if(!cpf){
+      this.openSnackBar('CPF já cadastrado na base.','Mude o CPF!');
+    }
+  })
 }
 
 openSnackBar(mensagem: string, acao: string) {

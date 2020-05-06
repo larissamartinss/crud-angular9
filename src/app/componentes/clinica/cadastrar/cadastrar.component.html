@@ -123,7 +123,7 @@
     
               <mat-form-field appearance="fill">
                 <mat-label>CPF</mat-label>
-                <input matInput formControlName="cpf"
+                <input matInput formControlName="cpf" (change)="validaCpf()"
                 id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
               </mat-form-field>
     

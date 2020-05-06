@@ -19,6 +19,9 @@ export class ClinicaService {
   obterClientesPorId(id: number): Observable<Cliente>{
     return this.http.get<Cliente>(this.UrlApi + `usuarios/${id}`);
   }
+  obterClientePorCpf(cpf: string) : Observable<boolean>{
+    return this.http.get<boolean>(this.UrlApi + `usuarios/validacpf/${cpf}`);
+  }
   salvarCliente(cliente : Cliente): Observable<Cliente>{
     return this.http.post<Cliente>(this.UrlApi + "usuarios",cliente);
   }
@@ -28,6 +31,5 @@ export class ClinicaService {
   deletarCliente(id : number): Observable<Cliente>{
     return this.http.delete<Cliente>(this.UrlApi + `usuarios/${id}`);
   }
-
 
 }

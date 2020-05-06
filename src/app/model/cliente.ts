@@ -17,4 +17,5 @@ export class Cliente  {
     public bairro: string;
     public uf: string;
     public numero: string;
+    public complemento : string;
   }
