@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { Cliente } from 'src/app/model/cliente';
 import { ClinicaService } from 'src/app/services/clinica.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConsultarComponent } from '../consultar/consultar.component';
+import { CepService } from 'src/app/services/cep.service';
 
 @Component({
   selector: 'app-cadastrar',
@@ -15,9 +15,11 @@ export class CadastrarComponent implements OnInit {
 
   FormGroupCliente : FormGroup;
   cliente : Cliente;
+  cep : string;
+
 
   constructor(private formBuilder: FormBuilder, private service: ClinicaService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar, private cepService : CepService) {
 
   }
 
@@ -33,6 +35,15 @@ export class CadastrarComponent implements OnInit {
       nome: new FormControl('',[Validators.maxLength(50), Validators.minLength(1)]),
       cpf: new FormControl('',[Validators.maxLength(11)]),
       telefone: new FormControl('',[Validators.maxLength(11)]),
+      cep: new FormControl('',[Validators.maxLength(11)]),
+      endereco: new FormControl('',[Validators.maxLength(11)]),
+      logradouro: new FormControl('',[Validators.maxLength(11)]),
+      complemento: new FormControl('',[Validators.maxLength(11)]),
+      bairro: new FormControl('',[Validators.maxLength(11)]),
+      localidade: new FormControl('',[Validators.maxLength(11)]),
+      uf: new FormControl('',[Validators.maxLength(11)]),
+      unidade: new FormControl('',[Validators.maxLength(11)]),
+      numero: new FormControl('',[Validators.maxLength(11)]),
     } );
   }
 
@@ -44,9 +55,16 @@ export class CadastrarComponent implements OnInit {
     cliente.nome = this.FormGroupCliente.get("nome").value;
     cliente.cpf = this.FormGroupCliente.get("cpf").value;
     cliente.telefone = this.FormGroupCliente.get("telefone").value;
+    cliente.cep = this.FormGroupCliente.get("cep").value;
+    cliente.logradouro = this.FormGroupCliente.get("logradouro").value;
+    cliente.bairro = this.FormGroupCliente.get("bairro").value;
+    cliente.uf = this.FormGroupCliente.get("uf").value;
+    cliente.localidade = this.FormGroupCliente.get("localidade").value;
+    cliente.numero = this.FormGroupCliente.get("numero").value;
+  
+
 
     return cliente;
-
   }
 
  //chama o servico que chama a API atraves do contexto http para salvar no banco de dados
@@ -57,17 +75,29 @@ salvarCliente(){
     this.openSnackBar('Por favor , preencha todos os campos','Preencha!');
     
   }else{
-    this.service.salvarCliente(this.cliente).subscribe(
-      x => {
+    this.service.salvarCliente(this.cliente).subscribe (
+      () => {
         this.openSnackBar('Registro cadastrado com sucesso.','Cadastrado!');
       },
       error => console.log(error)
       );
-  
       this.criarFormulario(); 
-
   }
-  
+}
+
+buscarCep(){
+  this.cep = this.FormGroupCliente.get("cep").value
+
+  this.cepService.buscarCep(this.cep).subscribe(endereco =>{
+
+    if(endereco){
+      this.FormGroupCliente.controls['bairro'].setValue(endereco.bairro);
+      this.FormGroupCliente.controls['logradouro'].setValue(endereco.logradouro);
+      this.FormGroupCliente.controls['localidade'].setValue(endereco.localidade);
+      this.FormGroupCliente.controls['uf'].setValue(endereco.uf);
+    }
+
+  })
 
 }
 

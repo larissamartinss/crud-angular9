@@ -25,6 +25,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from './componentes/shared/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,7 @@ import { DialogOverviewExampleDialogComponent } from './componentes/shared/dialo
     EditarComponent,
     ConsultarComponent,
     HomeComponent,
-    DialogOverviewExampleDialogComponent   
+    DialogOverviewExampleDialogComponent,
   ],
   imports: [
     BrowserModule,

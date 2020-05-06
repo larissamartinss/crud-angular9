@@ -67,9 +67,7 @@ export class EditarComponent implements OnInit {
       },
       error => console.log(error));
       }
-  
   }
-  
 
   openSnackBar(mensagem: string, acao: string) {
   this._snackBar.open(mensagem, acao, {
