@@ -1,6 +1,8 @@
   mat-sidenav-container {
     height: 100%;
   }
+
+  
   
   .sidenav {
     width: 200px;
@@ -14,17 +16,39 @@
   .spacer {
     flex: 1 1 auto;
   }
-  
+/*   
   mat-toolbar a {
     display: inline-block;
     margin: 0 10px;
     color: white;
     text-decoration: none;
-  }
+  } */
   /*
   @media (min-width: 768px) {
     .sidenav {
       display: none;
     }
   } */
+
+ .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
   
+
+  .menu-button{
+    position: fixed;
+  }
+
+  .navbar-brand {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+  }

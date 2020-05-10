@@ -24,7 +24,7 @@ import {  MatIconModule, } from  '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from './componentes/shared/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,8 @@ import { DialogOverviewExampleDialogComponent } from './componentes/shared/dialo
     MatToolbarModule,
     MatIconModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

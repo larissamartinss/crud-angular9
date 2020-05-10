@@ -1,188 +1,83 @@
-<!-- Page Content
-<mat-sidenav-content>
-<div class="container main-container"> -->
-
-    <!-- Jumbotron Header -->
-    <!-- <header class="jumbotron my-4">
-        <h1 class="display-3">Cadastro </h1>
-        <p class="lead">Aqui você pode realizar o seu cadastro.</p>
+<mat-grid-list cols="4" rowHeight="150px"> 
+  <mat-grid-tile colspan="4" rowspan="1">
+      <header>
+        <strong><h1> Cadastro </h1></strong>
+        <p> Aqui você pode realizar o seu cadastro. </p>
     </header>
-
-    <form  [formGroup]="FormGroupCliente"> -->
-        <!-- <div class="row row-sm-offset"> -->
-
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Input</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <br> -->
-
-            <!-- <div class="multi-horizontal">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Nome</mat-label>
-                        <input matInput formControlName="nome" required=""
-                        id="nome">
-                    </mat-form-field>
-            </div>
-
-            <div class="multi-horizontal">
-                <mat-form-field appearance="fill">
-                    <mat-label>CPF</mat-label>
-                    <input matInput formControlName="cpf" formControlName="cpf" required=""
-                    id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
-                </mat-form-field>
-            </div>
-
-            <div class="multi-horizontal">
-                <mat-form-field appearance="fill">
-                    <mat-label>Telefone</mat-label>
-                    <input matInput formControlName="cpf" formControlName="telefone" required=""
-                    id="telefone" mask="(00) 00000-0000" [showMaskTyped] = "false">
-                </mat-form-field>
-            </div>
-
-            <div class="multi-horizontal">
-                <mat-form-field appearance="fill">
-                    <mat-label>CEP</mat-label>
-                    <input matInput formControlName="cep" formControlName="cep" required=""
-                    id="cep" mask="00000-000" [showMaskTyped] = "false">
-                </mat-form-field>
-            </div>
-
-            <div class="multi-horizontal">
-                <mat-form-field appearance="fill">
-                    <mat-label>Endereço</mat-label>
-                    <input matInput formControlName="endereco" formControlName="endereco" required=""
-                     id="endereco">
-                </mat-form-field>
-            </div>
-
-            <div class="multi-horizontal">
-                <mat-form-field appearance="fill">
-                    <mat-label>Complemento</mat-label>
-                    <input matInput formControlName="complemento" formControlName="complemento" required=""
-                     id="complemento">
-                </mat-form-field>
-            </div>            
-
-            
-             <div class="multi-horizontal"> 
-                <mat-form-field appearance="fill">
-                    <mat-label>Bairro</mat-label>
-                    <input matInput formControlName="bairro" formControlName="bairro" required=""
-                     id="bairro">
-                </mat-form-field>
-           </div>    
-
-            <div class="multi-horizontal">
-                <mat-form-field appearance="fill">
-                    <mat-label>Cidade</mat-label>
-                    <input matInput formControlName="cidade" formControlName="cidade" required=""
-                     id="cidade">
-                </mat-form-field>
-            </div>     
-
-            <div class="multi-horizontal">
-                <mat-form-field appearance="fill">
-                    <mat-label>Estado</mat-label>
-                    <input matInput formControlName="estado" formControlName="estado" required=""
-                     id="estado">
-                </mat-form-field>
-            </div> 
-         </div> -->
-        <!-- <section>
-        <div class="example-button-row">
-            <button mat-raised-button color="primary"(click)='salvarCliente()'>Cadastrar</button>
-          <a mat-raised-button href="" type="submit"></a>
-        </div>
-    </section>  -->
-
-        <!-- <span class="input-group-btn">
-            <button href="" type="submit" class="btn btn-primary btn-form display-4" (click)='salvarCliente()'>Cadastrar</button>
-        </span> 
-    </form>
- </div> 
-<br>
-</mat-sidenav-content> -->
-
-
-<div class="container">
-    <header>
-        <strong><h1>Cadastro</h1></strong>
-        <p>Aqui você pode realizar o seu cadastro.</p>
-    </header>
-
-    <form [formGroup]="FormGroupCliente">
-
-        <div class="row">
-
-            <mat-form-field appearance="fill">
-                <mat-label>Nome</mat-label>
-                <input matInput formControlName="nome">
-              </mat-form-field>
-    
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4" rowspan="2">
+  
+      <form [formGroup]="FormGroupCliente">
+  
+          <div class="row">
+  
               <mat-form-field appearance="fill">
-                <mat-label>CPF</mat-label>
-                <input matInput formControlName="cpf" (change)="validaCpf()"
-                id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
-              </mat-form-field>
-    
-              <mat-form-field appearance="fill">
-                <mat-label>Telefone</mat-label>
-                <input matInput formControlName="telefone"
-                id="telefone" mask="(00) 00000-0000" [showMaskTyped] = "false">
-              </mat-form-field>
-        </div>
-
-        <div class="row">
-
-            <mat-form-field appearance="fill">
-                <mat-label>CEP</mat-label>
-                <input matInput formControlName="cep" (change)="buscarCep()"
-                id="cep" mask="00000-000" [showMaskTyped] = "false">
-              </mat-form-field>
-    
-              <mat-form-field appearance="fill">
-                <mat-label>Endereço</mat-label>
-                <input matInput formControlName="logradouro">
-              </mat-form-field>
-    
-              <mat-form-field appearance="fill">
-                <mat-label>Complemento</mat-label>
-                <input matInput formControlName="complemento">
-              </mat-form-field>
-        </div>
-        
-        <div class="row">
-            <mat-form-field appearance="fill">
-                <mat-label>Bairro</mat-label>
-                <input matInput formControlName="bairro">
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Cidade</mat-label>
-                <input matInput formControlName="localidade">
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Estado</mat-label>
-                <input matInput formControlName="uf">
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Numero</mat-label>
-                <input matInput formControlName="numero">
+                  <mat-label>Nome</mat-label>
+                  <input matInput formControlName="nome" autofocus>
                 </mat-form-field>
-        </div>
 
-        <section>
-            <div class="example-button-row">
-                <button mat-raised-button color="primary"(click)='salvarCliente()'>Cadastrar</button>
-              <a mat-raised-button href="" type="submit"></a>
-            </div>
-        </section>  
+                <mat-form-field appearance="fill">
+                  <mat-label>CPF</mat-label>
+                  <input #cpf matInput formControlName="cpf" (change)="validaCpf()"
+                  id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
+                </mat-form-field>
+      
+                <mat-form-field appearance="fill">
+                  <mat-label>Telefone</mat-label>
+                  <input matInput formControlName="telefone"
+                  id="telefone" mask="(00) 00000-0000" [showMaskTyped] = "false">
+                </mat-form-field>
+          </div>
+  
+          <div class="row">
+  
+              <mat-form-field appearance="fill">
+                  <mat-label>CEP</mat-label>
+                  <input #cep matInput formControlName="cep" (change)="buscarCep()"
+                  id="cep" mask="00000-000" [showMaskTyped] = "false">
+                </mat-form-field>
+      
+                <mat-form-field appearance="fill">
+                  <mat-label>Endereço</mat-label>
+                  <input matInput formControlName="logradouro">
+                </mat-form-field>
+      
+                <mat-form-field appearance="fill">
+                  <mat-label>Complemento</mat-label>
+                  <input matInput formControlName="complemento">
+                </mat-form-field>
+          </div>
+          
+          <div class="row">
+              <mat-form-field appearance="fill">
+                  <mat-label>Bairro</mat-label>
+                  <input matInput formControlName="bairro">
+                </mat-form-field>
+  
+                <mat-form-field appearance="fill">
+                  <mat-label>Cidade</mat-label>
+                  <input matInput formControlName="localidade">
+                </mat-form-field>
+  
+                <mat-form-field appearance="fill">
+                  <mat-label>Estado</mat-label>
+                  <input matInput formControlName="uf">
+                </mat-form-field>
+  
+                <mat-form-field appearance="fill">
+                  <mat-label>Numero</mat-label>
+                  <input matInput formControlName="numero">
+                  </mat-form-field>
+          </div>
+  
+          <section>
+              <div class="example-button-row">
+                  <button mat-raised-button color="primary"(click)='salvarCliente()'>Cadastrar</button>
+                <a mat-raised-button href="" type="submit"></a>
+              </div>
+          </section>  
+      </form>
+  </mat-grid-tile>
 
-        
-    </form>
+</mat-grid-list>
 
-</div>

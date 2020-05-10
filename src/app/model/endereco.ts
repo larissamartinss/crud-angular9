@@ -7,5 +7,6 @@ export class Endereco {
   public unidade: string;
   public ibge: string;
   public gia: string;
+  public erro: boolean;
 }
 

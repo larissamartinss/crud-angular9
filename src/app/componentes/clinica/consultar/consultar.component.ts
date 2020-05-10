@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog} from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from '../../shared/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Tile } from 'src/app/model/tile';
 
 
 @Component({
@@ -17,7 +18,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ConsultarComponent implements OnInit {
   clientes : Cliente[];
 
-  displayedColumns: string[] = [ 'id','nome', 'cpf', 'telefone', 'data', 'actions'];
+  displayedColumns: string[] = [ 'nome', 'cpf', 'telefone', 'data', 'cep','logradouro',
+  'complemento','bairro','localidade','uf','numero', 'actions'];
+
+  tiles: Tile[] = [
+    {cols: 3, rows: 1, clientes: this.clientes}
+  ];
 
   dataSource = new MatTableDataSource(this.clientes);
 
@@ -40,13 +46,13 @@ export class ConsultarComponent implements OnInit {
   openDialog(cliente): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
       width: '250px',
-      data: {cliente: cliente, mensagem: `Deseja realmente excluir o Id: ${cliente.id}?`, acao: "excluir"}
+      data: {cliente: cliente, mensagem: `Deseja realmente excluir o usuario ${cliente.nome}?`, acao: "excluir"}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       // debugger;
       if(result){
-        this.deletarCliente(cliente.id)
+        this.deletarCliente(cliente)
       }
     });
   }
@@ -70,11 +76,11 @@ export class ConsultarComponent implements OnInit {
 
   // deleta o cliente por ID apos clicar no botao excluir
   
-  deletarCliente(id){
-    this.clinicaService.deletarCliente(id)
+  deletarCliente(cliente){
+    this.clinicaService.deletarCliente(cliente.id)
       .subscribe(
         () => {
-        this.openSnackBar("Id: " + id + " excluído com sucesso!",'Excluido!');
+        this.openSnackBar("Usuario " + cliente.nome + " excluído com sucesso!",'Excluido!');
         this.carregaCliente();
         },
         error => console.log(error));

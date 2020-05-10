@@ -1,40 +1,27 @@
-<!-- <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-icon-button>
-      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-    </button>
-    <a [routerLink]="['/home']">Clinica Online</a>
-    <span class="menu-spacer"></span>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-<mat-sidenav-container class="example-container" >
-  <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened> 
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="'/consultar'"> Lista de Cliente </a>
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <mat-sidenav-content> 
-    <router-outlet></router-outlet>
-   </mat-sidenav-content> 
-</mat-sidenav-container> -->
-
 <mat-sidenav-container>
 
-  <mat-sidenav #sidenav closed>
-      <a class="simple-text" [routerLink]="['/home']">Clinica Online</a>
+  <mat-sidenav mode="side" #sidenav opened>
+    <mat-toolbar [routerLink]="['/home']" color="primary">
+      <button mat-button [routerLink]="['/home']">
+        Clinica Online
+      </button>
+    </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item [routerLink]="'/consultar'"> Lista de Cliente </a>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <button mat-icon-button>
-      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-    </button>
-    <router-outlet></router-outlet>
+    <div class="menu-button">
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+    </div>
+
+        <div class="mat-app-background basic-container">
+          <router-outlet></router-outlet>
+        </div>
+
   </mat-sidenav-content>
 
 </mat-sidenav-container>
