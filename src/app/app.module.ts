@@ -25,10 +25,16 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from './componentes/shared/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+// import { JamComponent } from './jam.component';
+// import {FormsModule} from '@ angular/forms';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    // JamComponent,
     FooterComponent,
     MenuComponent,
     CadastrarComponent,
@@ -36,9 +42,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
     ConsultarComponent,
     HomeComponent,
     DialogOverviewExampleDialogComponent,
+    
   ],
   imports: [
     BrowserModule,
+    // FormsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

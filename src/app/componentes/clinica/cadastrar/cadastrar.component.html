@@ -22,14 +22,88 @@
                   id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
                 </mat-form-field>
       
+                
                 <mat-form-field appearance="fill">
-                  <mat-label>Telefone</mat-label>
-                  <input matInput formControlName="telefone"
-                  id="telefone" mask="(00) 00000-0000" [showMaskTyped] = "false">
+                  <mat-label>Telefone residencial</mat-label>
+                  <div>  <input matInput formControlName="residencial"
+                  id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
                 </mat-form-field>
+
+                <div  ngDefaultControl>
+                  <button mat-button  color="primary"(click)='habilitaDiv()'>habilata</button>
+                </div>
+                
           </div>
-  
+
           <div class="row">
+            <div *ngIf="enabled">
+              <mat-form-field appearance="fill">
+               <mat-label>Telefone residencial</mat-label>
+               <div>  <input matInput formControlName="residencial"
+               id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+             </mat-form-field>
+           </div>
+
+          </div>
+
+          <div class="row">
+
+            <div *ngIf="mudaDiv > 3">
+              <mat-form-field appearance="fill">
+               <mat-label>whatsApp</mat-label>
+               <div>  <input matInput formControlName="whatsApp"
+               id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+             </mat-form-field>
+           </div>
+  
+  
+           <div *ngIf="mudaDiv > 4">
+            <mat-form-field appearance="fill">
+             <mat-label>comercial</mat-label>
+             <div>  <input matInput formControlName="comercial"
+             id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+           </mat-form-field>
+         </div>
+   
+         <div *ngIf="mudaDiv > 5">
+          <mat-form-field appearance="fill">
+           <mat-label>celular1</mat-label>
+           <div>  <input matInput formControlName="celular1"
+           id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+         </mat-form-field>
+       </div>
+       
+          </div>
+
+          <div class="row">
+
+            <div *ngIf="mudaDiv > 6">
+              <mat-form-field appearance="fill">
+               <mat-label>celular2</mat-label>
+               <div>  <input matInput formControlName="celular2"
+               id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+             </mat-form-field>
+           </div>
+        
+           <div *ngIf="mudaDiv > 7">
+            <mat-form-field appearance="fill">
+             <mat-label>celular3</mat-label>
+             <div>  <input matInput formControlName="celular3"
+             id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+           </mat-form-field>
+         </div>
+           
+         <div *ngIf="mudaDiv > 8">
+          <mat-form-field appearance="fill">
+           <mat-label>celular4</mat-label>
+           <div>  <input matInput formControlName="celular4"
+           id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+         </mat-form-field>
+        </div>
+          </div>
+
+  
+          <!-- <div class="row">
   
               <mat-form-field appearance="fill">
                   <mat-label>CEP</mat-label>
@@ -47,8 +121,9 @@
                   <input matInput formControlName="complemento">
                 </mat-form-field>
           </div>
-          
-          <div class="row">
+           -->
+
+          <!-- <div class="row">
               <mat-form-field appearance="fill">
                   <mat-label>Bairro</mat-label>
                   <input matInput formControlName="bairro">
@@ -68,7 +143,15 @@
                   <mat-label>Numero</mat-label>
                   <input matInput formControlName="numero">
                   </mat-form-field>
-          </div>
+          </div> -->
+
+          <!-- <p>
+            <label >Email</label>
+            <input type="text"  name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required/>
+              <span *ngIf="!email.valid && email.touched">
+                O email é obrigatório
+              </span>
+          </p> -->
   
           <section>
               <div class="example-button-row">

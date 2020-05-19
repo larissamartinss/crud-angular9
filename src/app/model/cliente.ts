@@ -8,7 +8,13 @@ export class Cliente  {
     public id: number;
     public nome: string;
     public cpf: string;
-    public telefone: string;
+    public residencial: string;
+    public whatsApp: string;
+    public comercial: string;
+    public celular1: string;
+    public celular2: string;
+    public celular3: string;
+    public celular4: string;
     public data: DatePipe;  
     public actions: MatButton;
     public cep: string;

@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CepService } from 'src/app/services/cep.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
+
 @Component({
   selector: 'app-cadastrar',
   templateUrl: './cadastrar.component.html',
@@ -21,6 +22,9 @@ export class CadastrarComponent implements OnInit {
   cliente : Cliente;
   cep : string;
   cpf : string;
+  textoButton : string = "HabilitaDiv";
+  enabled : boolean = false;
+  mudaDiv : number = 0;
 
 
   constructor(private formBuilder: FormBuilder, private service: ClinicaService,
@@ -39,7 +43,7 @@ export class CadastrarComponent implements OnInit {
     this.FormGroupCliente = this.formBuilder.group({
       nome: new FormControl('',[Validators.maxLength(50), Validators.minLength(1)]),
       cpf: new FormControl('',[Validators.maxLength(11)]),
-      telefone: new FormControl('',[Validators.maxLength(11)]),
+      residencial: new FormControl('',[Validators.maxLength(11)]),
       cep: new FormControl('',[Validators.maxLength(11)]),
       logradouro: new FormControl({value: '', disabled: true}),
       complemento: new FormControl('',[Validators.maxLength(11)]),
@@ -50,6 +54,23 @@ export class CadastrarComponent implements OnInit {
     } );
   }
 
+  habilitaDiv(){
+
+    debugger;
+    this.enabled = true
+
+    this.mudaDiv = this.mudaDiv + 1;
+    // debugger;
+    // if(this.enabled == true){
+
+    //   this.enabled = false ;
+    //   this.textoButton = "HabilitaDiv";
+    // }else{
+    //   this.enabled = true;
+    //   this.textoButton = "Desabilita";
+    // }
+
+  }
   //popula o modelo de cliente com os campos do formulario MAPPER
   popularCliente(){
 
@@ -57,7 +78,7 @@ export class CadastrarComponent implements OnInit {
 
     cliente.nome = this.FormGroupCliente.get("nome").value;
     cliente.cpf = this.FormGroupCliente.get("cpf").value;
-    cliente.telefone = this.FormGroupCliente.get("telefone").value;
+    cliente.residencial = this.FormGroupCliente.get("residencial").value;
     cliente.cep = this.FormGroupCliente.get("cep").value;
     cliente.logradouro = this.FormGroupCliente.get("logradouro").value;
     cliente.bairro = this.FormGroupCliente.get("bairro").value;
@@ -73,8 +94,13 @@ export class CadastrarComponent implements OnInit {
 salvarCliente(){
   this.cliente = this.popularCliente();
 
-  if(!this.cliente.nome || !this.cliente.telefone || !this.cliente.cpf){
-    this.openSnackBar('Por favor , preencha todos os campos','Preencha!');
+  // if(this.FormGroupCliente.valid){
+    
+  // }
+
+  if(!this.cliente.nome || !this.cliente.cpf || !this.cliente.residencial || !this.cliente.bairro || !this.cliente.cep
+    || !this.cliente.localidade || !this.cliente.logradouro || !this.cliente.uf || !this.cliente.numero){
+   this.openSnackBar('Por favor , preencha todos os campos','Preencha!');
     
   }else{
     this.service.salvarCliente(this.cliente).subscribe (

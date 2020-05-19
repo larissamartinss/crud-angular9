@@ -18,8 +18,7 @@ import { Tile } from 'src/app/model/tile';
 export class ConsultarComponent implements OnInit {
   clientes : Cliente[];
 
-  displayedColumns: string[] = [ 'nome', 'cpf', 'telefone', 'data', 'cep','logradouro',
-  'complemento','bairro','localidade','uf','numero', 'actions'];
+  displayedColumns: string[] = [ 'nome', 'cpf', 'residencial', 'data', 'actions'];
 
   tiles: Tile[] = [
     {cols: 3, rows: 1, clientes: this.clientes}

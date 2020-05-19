@@ -37,7 +37,7 @@ export class EditarComponent implements OnInit {
         //setando no formulario reativo os valores do id correspondente
         this.FormGroupCliente.controls["nome"].setValue(this.cliente.nome);
         this.FormGroupCliente.controls["cpf"].setValue(this.cliente.cpf);
-        this.FormGroupCliente.controls["telefone"].setValue(this.cliente.telefone);
+        this.FormGroupCliente.controls["residencial"].setValue(this.cliente.residencial);
         this.FormGroupCliente.controls["cep"].setValue(this.cliente.cep);
         this.FormGroupCliente.controls["logradouro"].setValue(this.cliente.logradouro);
         this.FormGroupCliente.controls["bairro"].setValue(this.cliente.bairro);
@@ -89,7 +89,7 @@ export class EditarComponent implements OnInit {
     this.FormGroupCliente = this.formBuilder.group({
       nome: new FormControl('',[Validators.maxLength(50), Validators.minLength(1)]),
       cpf: new FormControl('',[Validators.maxLength(11)]),
-      telefone: new FormControl('',[Validators.maxLength(11)]),
+      residencial: new FormControl('',[Validators.maxLength(11)]),
       cep: new FormControl('',[Validators.maxLength(11)]),
       logradouro: new FormControl({value: '', disabled: true}),
       complemento: new FormControl('',[Validators.maxLength(11)]),
@@ -104,7 +104,7 @@ export class EditarComponent implements OnInit {
 
     this.cliente.nome = this.FormGroupCliente.get('nome').value;
     this.cliente.cpf = this.FormGroupCliente.get('cpf').value;
-    this.cliente.telefone = this.FormGroupCliente.get('telefone').value;
+    this.cliente.residencial = this.FormGroupCliente.get('residencial').value;
     this.cliente.bairro = this.FormGroupCliente.get('bairro').value;
     this.cliente.cep = this.FormGroupCliente.get('cep').value;
     this.cliente.logradouro = this.FormGroupCliente.get('logradouro').value;
@@ -112,7 +112,7 @@ export class EditarComponent implements OnInit {
     this.cliente.uf = this.FormGroupCliente.get('uf').value;
     this.cliente.numero = this.FormGroupCliente.get('numero').value;
         
-    if(!this.cliente.nome || !this.cliente.cpf || !this.cliente.telefone || !this.cliente.bairro || !this.cliente.cep
+    if(!this.cliente.nome || !this.cliente.cpf || !this.cliente.residencial || !this.cliente.bairro || !this.cliente.cep
        || !this.cliente.localidade || !this.cliente.logradouro || !this.cliente.uf || !this.cliente.numero){
       this.openSnackBar('Por favor , preencha todos os campos','Preencha!');
       
@@ -125,8 +125,15 @@ export class EditarComponent implements OnInit {
        this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=> 
        this.router.navigate(['consultar']));
       },
-      error => console.log(error));
+      error => {
+        console.log(error);
+      this.openSnackBar(error.error.message,"Mude o CPF para prosseguir!");
       }
+      )};
+  }
+
+  editarTelefoneresidencial(){
+    
   }
 
   openSnackBar(mensagem: string, acao: string) {
