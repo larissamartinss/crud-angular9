@@ -44,3 +44,23 @@
     margin-left: auto;
     overflow:hidden;
  }
+
+
+ .green-icon {
+  color: green;
+}
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.green-icon svg {
+  fill: green;
+}
+
+.full-width {
+  width: 50%;
+}
+
+.example-form {
+  /* min-width: 150px;
+  max-width: 500px; */
+  width: 100%;
+}
+

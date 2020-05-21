@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from "@angular/forms";
 import { Cliente } from 'src/app/model/cliente';
 import { ClinicaService } from 'src/app/services/clinica.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CepService } from 'src/app/services/cep.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogOverviewExampleDialogComponent } from '../../shared/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
+import { isNullOrUndefined } from 'util';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 
 @Component({
@@ -26,9 +30,15 @@ export class CadastrarComponent implements OnInit {
   enabled : boolean = false;
   mudaDiv : number = 0;
 
+  celular1 : boolean = false;
+  celular2 : boolean = false;
+  celular3 : boolean = false;
+  celular4 : boolean = false;
+  celular5 : boolean = false;
+
 
   constructor(private formBuilder: FormBuilder, private service: ClinicaService,
-    private _snackBar: MatSnackBar, private cepService : CepService) {
+    private _snackBar: MatSnackBar, private cepService : CepService,public dialog: MatDialog ) {
 
   }
 
@@ -51,8 +61,11 @@ export class CadastrarComponent implements OnInit {
       localidade: new FormControl({value: '', disabled: true}),
       uf: new FormControl({value: '', disabled: true}),
       numero: new FormControl('',[Validators.maxLength(11)]),
+      email: new FormControl('', [Validators.required,Validators.email])
     } );
   }
+  matcher = new MyErrorStateMatcher();
+  
 
   habilitaDiv(){
 
@@ -71,6 +84,18 @@ export class CadastrarComponent implements OnInit {
     // }
 
   }
+
+  removeCampo($event){
+
+    console.log('evento',event);
+    // switch(){
+    //   case value:
+    //     break;
+    //     case value:
+
+    // }
+  }
+
   //popula o modelo de cliente com os campos do formulario MAPPER
   popularCliente(){
 
@@ -103,16 +128,9 @@ salvarCliente(){
    this.openSnackBar('Por favor , preencha todos os campos','Preencha!');
     
   }else{
-    this.service.salvarCliente(this.cliente).subscribe (
-       () => {
-         
-        this.openSnackBar('Registro cadastrado com sucesso.','Cadastrado!');
-        this.criarFormulario(); 
-      },
-      error => {
-        console.log(error);
-        this.openSnackBar(error.error.message,"Mude o CPF para prosseguir!");
-      });
+    this.openDialog(this.cliente);
+
+ 
   }
 }
 
@@ -162,4 +180,46 @@ openSnackBar(mensagem: string, acao: string) {
   });
 }
 
+openDialog(cliente): void {
+  const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
+    width: '250px',
+    data: {cliente: cliente, mensagem: `Deseja manter contato pelo e-mail?`, acao: "manterContato", isManterContato: false}
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    console.log('result',result);
+    
+    if(!isNullOrUndefined(result)){
+      if(!result){
+        cliente.isManterContato = false;
+      }
+      else{
+        cliente.isManterContato = true;
+      }
+      this.service.salvarCliente(this.cliente).subscribe (
+          () => {
+            
+           this.openSnackBar('Registro cadastrado com sucesso.','Cadastrado!');
+           this.criarFormulario(); 
+         },
+         error => {
+           console.log(error);
+           this.openSnackBar(error.error.message,"Mude o CPF para prosseguir!");
+         });
+    }
+    
+  });
+}
+
+
+
+}
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
 }

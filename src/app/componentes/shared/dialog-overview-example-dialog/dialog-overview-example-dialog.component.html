@@ -3,6 +3,16 @@
   <p>{{data.mensagem}}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button [mat-dialog-close]="data.acao" cdkFocusInitial>Ok</button>
+  <div *ngIf="data.acao == 'manterContato'">
+    <button mat-button color="warn" [mat-dialog-close]="data.isManterContato">Não quero manter Contato!</button>
+  </div>
+  <div *ngIf="data.acao == 'excluir'">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+  </div>
+  <div *ngIf="data.acao == 'manterContato'">
+    <button mat-button color="primary" [mat-dialog-close]="data.acao" cdkFocusInitial>Manter Contato!</button>
+  </div>
+  <div *ngIf="data.acao == 'excluir'">
+    <button mat-button [mat-dialog-close]="data.acao" cdkFocusInitial>Ok</button>
+  </div>
 </div>

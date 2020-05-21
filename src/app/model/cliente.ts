@@ -24,4 +24,6 @@ export class Cliente  {
     public uf: string;
     public numero: string;
     public complemento : string;
+    public email: string;
+    public isMasterContato : boolean;
   }

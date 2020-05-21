@@ -25,6 +25,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from './componentes/shared/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { CoreModule } from './core/core.module';
+import { CoreFeaturesModule } from './core-features/core-features.module';
+import {MatCardModule} from '@angular/material/card';
 // import { JamComponent } from './jam.component';
 // import {FormsModule} from '@ angular/forms';
 
@@ -51,6 +54,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    // CoreModule.forRoot(),
+    // CoreFeaturesModule.forRoot(),
     NgxMaskModule.forRoot({
       validation: true,
     }),
@@ -65,7 +70,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatIconModule,
     MatTableModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
