@@ -51,17 +51,23 @@ export class CadastrarComponent implements OnInit {
   //cria o formulario reativo
   criarFormulario(){
     this.FormGroupCliente = this.formBuilder.group({
-      nome: new FormControl('',[Validators.maxLength(50), Validators.minLength(1)]),
-      cpf: new FormControl('',[Validators.maxLength(11)]),
+      nome: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.minLength(1)]),
+      cpf: new FormControl('',[Validators.required,Validators.maxLength(11),]),
       residencial: new FormControl('',[Validators.maxLength(11)]),
-      cep: new FormControl('',[Validators.maxLength(11)]),
+      cep: new FormControl('',[Validators.required, Validators.maxLength(11)]),
       logradouro: new FormControl({value: '', disabled: true}),
       complemento: new FormControl('',[Validators.maxLength(11)]),
       bairro: new FormControl({value: '', disabled: true}),
       localidade: new FormControl({value: '', disabled: true}),
       uf: new FormControl({value: '', disabled: true}),
       numero: new FormControl('',[Validators.maxLength(11)]),
-      email: new FormControl('', [Validators.required,Validators.email])
+      email: new FormControl('', [Validators.required,Validators.email]),
+      comercial: new FormControl('',[Validators.maxLength(11)]),
+      whatsApp: new FormControl('',[Validators.maxLength(11)]),
+      celular1: new FormControl('',[Validators.maxLength(11)]),
+      celular2: new FormControl('',[Validators.maxLength(11)]),
+      celular3: new FormControl('',[Validators.maxLength(11)]),
+      celular4: new FormControl('',[Validators.maxLength(11)]),
     } );
   }
   matcher = new MyErrorStateMatcher();
@@ -111,6 +117,13 @@ export class CadastrarComponent implements OnInit {
     cliente.localidade = this.FormGroupCliente.get("localidade").value;
     cliente.numero = this.FormGroupCliente.get("numero").value;
     cliente.complemento = this.FormGroupCliente.get("complemento").value;
+    cliente.email = this.FormGroupCliente.get("email").value;
+    cliente.comercial = this.FormGroupCliente.get("comercial").value;
+    cliente.whatsApp = this.FormGroupCliente.get("whatsApp").value;
+    cliente.celular1 = this.FormGroupCliente.get("celular1").value;
+    cliente.celular2 = this.FormGroupCliente.get("celular2").value;
+    cliente.celular3 = this.FormGroupCliente.get("celular3").value;
+    cliente.celular4 = this.FormGroupCliente.get("celular4").value;
   
     return cliente;
   }
@@ -118,20 +131,9 @@ export class CadastrarComponent implements OnInit {
  //chama o servico no angular que chama a API atraves do contexto http para salvar no banco de dados
 salvarCliente(){
   this.cliente = this.popularCliente();
-
-  // if(this.FormGroupCliente.valid){
-    
-  // }
-
-  if(!this.cliente.nome || !this.cliente.cpf || !this.cliente.residencial || !this.cliente.bairro || !this.cliente.cep
-    || !this.cliente.localidade || !this.cliente.logradouro || !this.cliente.uf || !this.cliente.numero){
-   this.openSnackBar('Por favor , preencha todos os campos','Preencha!');
-    
-  }else{
-    this.openDialog(this.cliente);
-
- 
-  }
+  
+  //
+  this.openDialog(this.cliente);
 }
 
 

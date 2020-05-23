@@ -1,169 +1,3 @@
-<!-- <mat-grid-list cols="4" rowHeight="150px"> 
-  <mat-grid-tile colspan="4" rowspan="1">
-      <header>
-        <strong><h1> Cadastro </h1></strong>
-        <p> Aqui você pode realizar o seu cadastro. </p>
-    </header>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="4" rowspan="2">
-  
-      <form [formGroup]="FormGroupCliente">
-  
-          <div class="row">
-  
-              <mat-form-field appearance="standard">
-                  <mat-label>Nome</mat-label>
-                  <input matInput formControlName="nome" autofocus>
-                </mat-form-field>
-
-                <mat-form-field appearance="standard">
-                  <mat-label>CPF</mat-label>
-                  <input #cpf matInput formControlName="cpf" (change)="validaCpf()"
-                  id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
-                </mat-form-field>
-      
-                
-                <mat-form-field appearance="standard">
-                  <mat-label>Telefone residencial</mat-label>
-                  <div>  <input matInput formControlName="residencial"
-                  id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-                </mat-form-field>
-
-                <div  ngDefaultControl>
-                  <button mat-button  color="primary"(click)='habilitaDiv()'>habilata</button>
-                </div>
-                
-          </div>
-
-          <div class="row">
-            <div *ngIf="enabled">
-              <mat-form-field appearance="standard">
-               <mat-label>Telefone residencial</mat-label>
-               <div>  <input matInput formControlName="residencial"
-               id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-             </mat-form-field>
-           </div>
-
-          </div>
-
-          <div class="row">
-
-            <div *ngIf="mudaDiv > 3">
-              <mat-form-field appearance="standard">
-               <mat-label>whatsApp</mat-label>
-               <div>  <input matInput formControlName="whatsApp"
-               id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-             </mat-form-field>
-           </div>
-  
-  
-           <div *ngIf="mudaDiv > 4">
-            <mat-form-field appearance="standard">
-             <mat-label>comercial</mat-label>
-             <div>  <input matInput formControlName="comercial"
-             id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-           </mat-form-field>
-         </div>
-   
-         <div *ngIf="mudaDiv > 5">
-          <mat-form-field appearance="standard">
-           <mat-label>celular1</mat-label>
-           <div>  <input matInput formControlName="celular1"
-           id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-         </mat-form-field>
-       </div>
-       
-          </div>
-
-          <div class="row">
-
-            <div *ngIf="mudaDiv > 6">
-              <mat-form-field appearance="standard">
-               <mat-label>celular2</mat-label>
-               <div>  <input matInput formControlName="celular2"
-               id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-             </mat-form-field>
-           </div>
-        
-           <div *ngIf="mudaDiv > 7">
-            <mat-form-field appearance="standard">
-             <mat-label>celular3</mat-label>
-             <div>  <input matInput formControlName="celular3"
-             id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-           </mat-form-field>
-         </div>
-           
-         <div *ngIf="mudaDiv > 8">
-          <mat-form-field appearance="standard">
-           <mat-label>celular4</mat-label>
-           <div>  <input matInput formControlName="celular4"
-           id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-         </mat-form-field>
-        </div>
-          </div> -->
-
-  
-          <!-- <div class="row">
-  
-              <mat-form-field appearance="standard">
-                  <mat-label>CEP</mat-label>
-                  <input #cep matInput formControlName="cep" (change)="buscarCep()"
-                  id="cep" mask="00000-000" [showMaskTyped] = "false">
-                </mat-form-field>
-      
-                <mat-form-field appearance="standard">
-                  <mat-label>Endereço</mat-label>
-                  <input matInput formControlName="logradouro">
-                </mat-form-field>
-      
-                <mat-form-field appearance="standard">
-                  <mat-label>Complemento</mat-label>
-                  <input matInput formControlName="complemento">
-                </mat-form-field>
-          </div>
-           -->
-
-          <!-- <div class="row">
-              <mat-form-field appearance="standard">
-                  <mat-label>Bairro</mat-label>
-                  <input matInput formControlName="bairro">
-                </mat-form-field>
-  
-                <mat-form-field appearance="standard">
-                  <mat-label>Cidade</mat-label>
-                  <input matInput formControlName="localidade">
-                </mat-form-field>
-  
-                <mat-form-field appearance="standard">
-                  <mat-label>Estado</mat-label>
-                  <input matInput formControlName="uf">
-                </mat-form-field>
-  
-                <mat-form-field appearance="standard">
-                  <mat-label>Numero</mat-label>
-                  <input matInput formControlName="numero">
-                  </mat-form-field>
-          </div> -->
-
-          <!-- <p>
-            <label >Email</label>
-            <input type="text"  name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required/>
-              <span *ngIf="!email.valid && email.touched">
-                O email é obrigatório
-              </span>
-          </p> -->
-  
-          <!-- <section>
-              <div class="example-button-row">
-                  <button mat-raised-button color="primary"(click)='salvarCliente()'>Cadastrar</button>
-                <a mat-raised-button href="" type="submit"></a>
-              </div>
-          </section>  
-      </form>
-  </mat-grid-tile>
-
-</mat-grid-list> -->
-
 
 <div layout="row" layout-wrap>
   <header>
@@ -190,8 +24,8 @@
         
                placeholder="Ex. exemploe@exemplo.com">
         <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-        <mat-error *ngIf="FormGroupCliente.get('email').hasError('email') && !FormGroupCliente.get('name').hasError('required')">
-          Please insira um e-mail valido!
+        <mat-error *ngIf="FormGroupCliente.get('email').hasError('email') && !FormGroupCliente.get('email').hasError('required')">
+          Por favor insira um e-mail valido!
         </mat-error>
         <mat-error *ngIf="FormGroupCliente.get('email').hasError('required')">
           Email é <strong>obrigatório</strong>
@@ -355,18 +189,10 @@
             </mat-form-field>
     </div>
 
-    <!-- <p>
-      <label >Email</label>
-      <input type="text"  name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required/>
-        <span *ngIf="!email.valid && email.touched">
-          O email é obrigatório
-        </span>
-    </p> -->
-
     <section>
         <div class="example-button-row">
-            <button mat-raised-button color="primary"(click)='salvarCliente()'>Cadastrar</button>
-          <a mat-raised-button href="" type="submit"></a>
+            <button mat-raised-button type="reset" color="primary"(click)='salvarCliente()' [disabled]="!FormGroupCliente.valid">Cadastrar</button>
+          <!-- <a mat-raised-button href="" type="submit"></a> -->
         </div>
     </section>  
 </form>
