@@ -30,12 +30,13 @@ export class CadastrarComponent implements OnInit {
   enabled : boolean = false;
   mudaDiv : number = 0;
 
+  comercial : boolean = false;
+  whatsapp: boolean = false;
   celular1 : boolean = false;
   celular2 : boolean = false;
   celular3 : boolean = false;
   celular4 : boolean = false;
-  celular5 : boolean = false;
-
+  celular5 : boolean = false; 
 
   constructor(private formBuilder: FormBuilder, private service: ClinicaService,
     private _snackBar: MatSnackBar, private cepService : CepService,public dialog: MatDialog ) {
@@ -71,35 +72,84 @@ export class CadastrarComponent implements OnInit {
     } );
   }
   matcher = new MyErrorStateMatcher();
+
+  removeInput(idInput:any){
+
+  }
   
 
   habilitaDiv(){
 
-    debugger;
-    this.enabled = true
+    if(!this.comercial){
+      this.comercial = true;
+      return;
+    }
 
-    this.mudaDiv = this.mudaDiv + 1;
-    // debugger;
-    // if(this.enabled == true){
+    if(!this.whatsapp){
+      this.whatsapp = true;
+      return;
+    }
 
-    //   this.enabled = false ;
-    //   this.textoButton = "HabilitaDiv";
-    // }else{
-    //   this.enabled = true;
-    //   this.textoButton = "Desabilita";
-    // }
+    if(!this.celular1){
+      this.celular1 = true;
+      return;
+    }
 
+    if(!this.celular2){
+      this.celular2 = true;
+      return;
+    }
+
+    if(!this.celular3){
+      this.celular3 = true;
+      return;
+    }
+
+    if(!this.celular4){
+      this.celular4 = true;
+      return;
+    }
+
+    if(!this.celular5){
+      this.celular5 = true;
+      return;
+    }
+    
   }
 
-  removeCampo($event){
+  removeCampo(idBotao){
 
-    console.log('evento',event);
-    // switch(){
-    //   case value:
-    //     break;
-    //     case value:
-
-    // }
+    switch (idBotao) {
+      case 'comercial':
+        this.comercial = false;
+        this.FormGroupCliente.controls["comercial"].setValue(null);
+        break;
+      case 'whatsapp':
+        this.whatsapp = false;
+        this.FormGroupCliente.controls["whatsapp"].setValue(null);
+      case 'celular1':
+        this.celular1 = false;
+        this.FormGroupCliente.controls["celular1"].setValue(null);
+        break;
+      case 'celular2':
+        this.celular2 = false
+        this.FormGroupCliente.controls["celular2"].setValue(null);
+        break;
+      case 'celular3':
+        this.celular3 = false;
+        this.FormGroupCliente.controls["celular3"].setValue(null);
+        break;
+      case 'celular4':
+        this.celular4 = false; 
+        this.FormGroupCliente.controls["celular4"].setValue(null);
+        break;
+      case 'celular5':
+        this.celular5 = false;
+        this.FormGroupCliente.controls["celular5"].setValue(null);
+        break;
+      default:
+        break;
+    }
   }
 
   //popula o modelo de cliente com os campos do formulario MAPPER
@@ -213,8 +263,6 @@ openDialog(cliente): void {
     
   });
 }
-
-
 
 }
 

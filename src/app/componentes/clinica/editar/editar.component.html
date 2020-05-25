@@ -1,98 +1,193 @@
 
+<div layout="row" layout-wrap>
+  <header>
+    <strong><h1> Edita cadastro </h1></strong>
+    <p> Aqui você pode alterar seu cadastro. </p>
+</header>
+  <form class="example-form" [formGroup]="FormGroupCliente">
+  
+    <p>Dados Pessoais</p>
+    <!-- <mat-card-content>Dados Pessoais</mat-card-content> -->
 
+    <div class="row">
+      <mat-form-field appearance="standard" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput #message maxlength="50" formControlName="nome" autofocus>
+        <mat-hint align="end">{{message.value.length}} / 50</mat-hint>
+      </mat-form-field>
+    </div>
 
-    <mat-grid-list cols="4" rowHeight="150px"> 
-      <mat-grid-tile colspan="4" rowspan="1">
-        <!-- <div class="row"> -->
-          <header>
-            <strong><h1>Editar</h1></strong>
-            <p>Aqui você pode editar o seu cadastro.</p>
-         </header>
-        <!-- </div> -->
-      </mat-grid-tile>
-      <mat-grid-tile colspan="4" rowspan="2">
-        <!-- <div class="container"> -->
-      
-          <form [formGroup]="FormGroupCliente">
-      
-              <div class="row">
-      
-                  <mat-form-field appearance="fill">
-                      <mat-label>Nome</mat-label>
-                      <input matInput formControlName="nome">
-                    </mat-form-field>
-          
-                    <mat-form-field appearance="fill">
-                      <mat-label>CPF</mat-label>
-                      <input #cpf matInput formControlName="cpf" (change)="validaCpf()"
-                      id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
-                    </mat-form-field>
-          
-                    <mat-form-field appearance="fill">
-                      <mat-label>Telefone residencial</mat-label>
-                      <input matInput formControlName="residencial"
-                      id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false">
-                    </mat-form-field>
-              </div>
-      
-              <div class="row">
-      
-                  <mat-form-field appearance="fill">
-                      <mat-label>CEP</mat-label>
-                      <input #cep matInput formControlName="cep" (change)="buscarCep()"
-                      id="cep" mask="00000-000" [showMaskTyped] = "false">
-                    </mat-form-field>
-          
-                    <mat-form-field appearance="fill">
-                      <mat-label>Endereço</mat-label>
-                      <input matInput formControlName="logradouro" disableControl="true">
-                    </mat-form-field>
-          
-                    <mat-form-field appearance="fill">
-                      <mat-label>Complemento</mat-label>
-                      <input matInput formControlName="complemento">
-                    </mat-form-field>
-              </div>
-              
-              <div class="row">
-                  <mat-form-field appearance="fill">
-                      <mat-label>Bairro</mat-label>
-                      <input matInput formControlName="bairro">
-                    </mat-form-field>
-      
-                    <mat-form-field appearance="fill">
-                      <mat-label>Cidade</mat-label>
-                      <input matInput formControlName="localidade">
-                    </mat-form-field>
-      
-                    <mat-form-field appearance="fill">
-                      <mat-label>Estado</mat-label>
-                      <input matInput formControlName="uf">
-                    </mat-form-field>
-      
-                    <mat-form-field appearance="fill">
-                      <mat-label>Numero</mat-label>
-                      <input matInput formControlName="numero">
-                      </mat-form-field>
-              </div>
-      
-              <section>
-                <div class="example-button-row">
-                    <button mat-raised-button color="primary"(click)='editarCliente()'>Editar</button>
-                  <a mat-raised-button href="" type="submit"></a>
-                </div>
+    <div class="row">
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" 
+        
+               placeholder="Ex. exemplo@exemplo.com">
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <mat-error *ngIf="FormGroupCliente.get('email').hasError('email') && !FormGroupCliente.get('email').hasError('required')">
+          Por favor insira um e-mail valido!
+        </mat-error>
+        <mat-error *ngIf="FormGroupCliente.get('email').hasError('required')">
+          Email é <strong>obrigatório</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-              	<div class="example-button-row">
-                  <button mat-mini-fab color="blue" aria-label="Example icon button with a plus one icon">
-                    <mat-icon>plus_one</mat-icon>
-                  </button>
-                </div>
-                
-            </section> 
-          </form>
-      <!-- </div> -->
-      </mat-grid-tile>
+    <div class="row">
+
+          <mat-form-field appearance="standard">
+            <mat-label>CPF</mat-label>
+            <input #cpf matInput formControlName="cpf" (change)="validaCpf()"
+            id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
+          </mat-form-field>
+          
+          <div>
+            <mat-form-field appearance="standard">
+              <mat-label>Telefone residencial</mat-label>
+              <div>  <input matInput formControlName="residencial"
+              id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+            </mat-form-field>
+  
+            <button type="button" mat-icon-button  color="accent" (click)='habilitaDiv()'>
+              <mat-icon class="green-icon" aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+             </button>
+          </div>
+
+           <div *ngIf="comercial">
+            <mat-form-field appearance="standard">
+             <mat-label>Comercial</mat-label>
+             <div>  <input matInput formControlName="comercial"
+             id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+           </mat-form-field>
+           <button  mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('comercial')">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+           </button>
+         </div>
+
+         <div *ngIf="whatsapp">
+          <mat-form-field appearance="standard">
+           <mat-label>WhatsApp</mat-label>
+           <div>  <input matInput formControlName="whatsApp"
+           id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+         </mat-form-field>
+  
+         <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('whatsapp')">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+         </button>
+       </div>
+  
+  
+       <div *ngIf="celular1">
+        <mat-form-field appearance="standard">
+         <mat-label>Celular 1</mat-label>
+         <div>  <input matInput formControlName="celular1"
+         id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+       </mat-form-field>
+  
+       <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular1')">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+       </button>
+     </div>
+  
+     <div *ngIf="celular2">
+      <mat-form-field appearance="standard">
+       <mat-label>Celular 2</mat-label>
+       <div>  <input matInput formControlName="celular2"
+       id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+     </mat-form-field>
+  
+     <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular2')">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+     </button>
+   </div>
+
+   <div *ngIf="celular3">
+    <mat-form-field appearance="standard">
+     <mat-label>Celular 3</mat-label>
+     <div>  <input matInput formControlName="celular3"
+     id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+   </mat-form-field>
+
+   <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular3')">
+    <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+   </button>
+ </div>
+
+ <div *ngIf="celular4">
+  <mat-form-field appearance="standard">
+   <mat-label>Celular 4</mat-label>
+   <div>  <input matInput formControlName="celular4"
+   id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+ </mat-form-field>
+
+ <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular4')">
+  <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+ </button>
+</div>
+ 
+<div *ngIf="celular5">
+<mat-form-field appearance="standard">
+ <mat-label>Celular 5</mat-label>
+ <div>  <input matInput  formControlName="celular5"
+ id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+</mat-form-field>
+
+<button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular5')">
+<mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+</button>
+</div>
+   
+          
+    </div>
+
+   
+    <div class="row">
+
+        <mat-form-field appearance="standard">
+            <mat-label>CEP</mat-label>
+            <input #cep matInput formControlName="cep" (change)="buscarCep()"
+            id="cep" mask="00000-000" [showMaskTyped] = "false">
+          </mat-form-field>
+
+          <mat-form-field appearance="standard">
+            <mat-label>Endereço</mat-label>
+            <input matInput formControlName="logradouro">
+          </mat-form-field>
+
+          <mat-form-field appearance="standard">
+            <mat-label>Complemento</mat-label>
+            <input matInput formControlName="complemento">
+          </mat-form-field>
+    </div>
     
-    </mat-grid-list>
-    
-    
+
+    <div class="row">
+        <mat-form-field appearance="standard">
+            <mat-label>Bairro</mat-label>
+            <input matInput formControlName="bairro">
+          </mat-form-field>
+
+          <mat-form-field appearance="standard">
+            <mat-label>Cidade</mat-label>
+            <input matInput formControlName="localidade">
+          </mat-form-field>
+
+          <mat-form-field appearance="standard">
+            <mat-label>Estado</mat-label>
+            <input matInput formControlName="uf">
+          </mat-form-field>
+
+          <mat-form-field appearance="standard">
+            <mat-label>Numero</mat-label>
+            <input matInput formControlName="numero">
+            </mat-form-field>
+    </div>
+
+    <section>
+        <div class="example-button-row">
+            <button mat-raised-button type="reset" color="primary"(click)='editarCliente()' [disabled]="!FormGroupCliente.valid">Editar</button>
+          <!-- <a mat-raised-button href="" type="submit"></a> -->
+        </div>
+    </section>  
+</form>
+</div>

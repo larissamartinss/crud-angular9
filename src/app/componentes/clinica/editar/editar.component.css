@@ -44,3 +44,6 @@
   margin-left: auto;
   overflow:hidden;
 }
+.full-width {
+  width: 50%;
+}

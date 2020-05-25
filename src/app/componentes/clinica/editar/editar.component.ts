@@ -4,7 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClinicaService } from 'src/app/services/clinica.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogOverviewExampleDialogComponent } from '../../shared/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { CepService } from 'src/app/services/cep.service';
+import { isNullOrUndefined } from 'util';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-editar',
@@ -20,9 +23,17 @@ export class EditarComponent implements OnInit {
   cep : string;
   cpf : string;
   cpfEmUso : string;
+  comercial : boolean = false;
+  whatsapp: boolean = false;
+  celular1 : boolean = false;
+  celular2 : boolean = false;
+  celular3 : boolean = false;
+  celular4 : boolean = false;
+  celular5 : boolean = false; 
 
   constructor(private route: ActivatedRoute, private router: Router,private clinicaService: ClinicaService, private service: ClinicaService,
-    private cepService : CepService, private formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
+    private cepService : CepService, private formBuilder: FormBuilder, private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -87,19 +98,63 @@ export class EditarComponent implements OnInit {
   //cria o formulario reativo
   criarFormulario(){
     this.FormGroupCliente = this.formBuilder.group({
-      nome: new FormControl('',[Validators.maxLength(50), Validators.minLength(1)]),
-      cpf: new FormControl('',[Validators.maxLength(11)]),
+      nome: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.minLength(1)]),
+      cpf: new FormControl('',[Validators.required,Validators.maxLength(11),]),
       residencial: new FormControl('',[Validators.maxLength(11)]),
-      cep: new FormControl('',[Validators.maxLength(11)]),
+      cep: new FormControl('',[Validators.required, Validators.maxLength(11)]),
       logradouro: new FormControl({value: '', disabled: true}),
       complemento: new FormControl('',[Validators.maxLength(11)]),
       bairro: new FormControl({value: '', disabled: true}),
       localidade: new FormControl({value: '', disabled: true}),
       uf: new FormControl({value: '', disabled: true}),
       numero: new FormControl('',[Validators.maxLength(11)]),
+      email: new FormControl('', [Validators.required,Validators.email]),
+      comercial: new FormControl('',[Validators.maxLength(11)]),
+      whatsApp: new FormControl('',[Validators.maxLength(11)]),
+      celular1: new FormControl('',[Validators.maxLength(11)]),
+      celular2: new FormControl('',[Validators.maxLength(11)]),
+      celular3: new FormControl('',[Validators.maxLength(11)]),
+      celular4: new FormControl('',[Validators.maxLength(11)]),
     } );
   }
+  habilitaDiv(){
 
+    if(!this.comercial){
+      this.comercial = true;
+      return;
+    }
+
+    if(!this.whatsapp){
+      this.whatsapp = true;
+      return;
+    }
+
+    if(!this.celular1){
+      this.celular1 = true;
+      return;
+    }
+
+    if(!this.celular2){
+      this.celular2 = true;
+      return;
+    }
+
+    if(!this.celular3){
+      this.celular3 = true;
+      return;
+    }
+
+    if(!this.celular4){
+      this.celular4 = true;
+      return;
+    }
+
+    if(!this.celular5){
+      this.celular5 = true;
+      return;
+    }
+    
+  }
   editarCliente(){
 
     this.cliente.nome = this.FormGroupCliente.get('nome').value;
@@ -111,6 +166,7 @@ export class EditarComponent implements OnInit {
     this.cliente.localidade = this.FormGroupCliente.get('localidade').value;
     this.cliente.uf = this.FormGroupCliente.get('uf').value;
     this.cliente.numero = this.FormGroupCliente.get('numero').value;
+    
         
     if(!this.cliente.nome || !this.cliente.cpf || !this.cliente.residencial || !this.cliente.bairro || !this.cliente.cep
        || !this.cliente.localidade || !this.cliente.logradouro || !this.cliente.uf || !this.cliente.numero){
@@ -131,6 +187,40 @@ export class EditarComponent implements OnInit {
       }
       )};
   }
+  removeCampo(idBotao){
+
+    switch (idBotao) {
+      case 'comercial':
+        this.comercial = false;
+        this.FormGroupCliente.controls["comercial"].setValue(null);
+        break;
+      case 'whatsapp':
+        this.whatsapp = false;
+        this.FormGroupCliente.controls["whatsapp"].setValue(null);
+      case 'celular1':
+        this.celular1 = false;
+        this.FormGroupCliente.controls["celular1"].setValue(null);
+        break;
+      case 'celular2':
+        this.celular2 = false
+        this.FormGroupCliente.controls["celular2"].setValue(null);
+        break;
+      case 'celular3':
+        this.celular3 = false;
+        this.FormGroupCliente.controls["celular3"].setValue(null);
+        break;
+      case 'celular4':
+        this.celular4 = false; 
+        this.FormGroupCliente.controls["celular4"].setValue(null);
+        break;
+      case 'celular5':
+        this.celular5 = false;
+        this.FormGroupCliente.controls["celular5"].setValue(null);
+        break;
+      default:
+        break;
+    }
+  }
 
   editarTelefoneresidencial(){
     
@@ -141,4 +231,37 @@ export class EditarComponent implements OnInit {
     duration: 2000,
   });
 }
+
+  openDialog(cliente): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
+      width: '250px',
+      data: {cliente: cliente, mensagem: `Deseja manter contato pelo e-mail?`, acao: "manterContato", isManterContato: false}
+    });
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    console.log('result',result);
+    
+    if(!isNullOrUndefined(result)){
+      if(!result){
+        cliente.isManterContato = false;
+      }
+      else{
+        cliente.isManterContato = true;
+      }
+      this.service.salvarCliente(this.cliente).subscribe (
+          () => {
+            
+           this.openSnackBar('Registro cadastrado com sucesso.','Cadastrado!');
+           this.criarFormulario(); 
+         },
+         error => {
+           console.log(error);
+           this.openSnackBar(error.error.message,"Mude o CPF para prosseguir!");
+         });
+    }
+    
+  });
+}
+
 }

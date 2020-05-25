@@ -18,11 +18,11 @@
     </div>
 
     <div class="row">
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="full-width">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" 
         
-               placeholder="Ex. exemploe@exemplo.com">
+               placeholder="Ex. exemplo@exemplo.com">
         <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
         <mat-error *ngIf="FormGroupCliente.get('email').hasError('email') && !FormGroupCliente.get('email').hasError('required')">
           Por favor insira um e-mail valido!
@@ -40,7 +40,6 @@
             <input #cpf matInput formControlName="cpf" (change)="validaCpf()"
             id="cpf" mask="000.000.000-00" [showMaskTyped] = "false">
           </mat-form-field>
-
           
           <div>
             <mat-form-field appearance="standard">
@@ -49,104 +48,99 @@
               id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
             </mat-form-field>
   
-            <button mat-icon-button  color="accent" (click)='habilitaDiv()'>
+            <button type="button" mat-icon-button  color="accent" (click)='habilitaDiv()'>
               <mat-icon class="green-icon" aria-hidden="false" aria-label="Example home icon">add</mat-icon>
              </button>
           </div>
 
-           <div *ngIf="enabled">
+           <div *ngIf="comercial">
             <mat-form-field appearance="standard">
              <mat-label>Comercial</mat-label>
              <div>  <input matInput formControlName="comercial"
              id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
            </mat-form-field>
-           <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo($event)">
+           <button  mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('comercial')">
             <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
            </button>
          </div>
-          
-    </div>
 
-    <div class="row">
-
-      <div *ngIf="mudaDiv > 1">
+         <div *ngIf="whatsapp">
+          <mat-form-field appearance="standard">
+           <mat-label>WhatsApp</mat-label>
+           <div>  <input matInput formControlName="whatsApp"
+           id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+         </mat-form-field>
+  
+         <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('whatsapp')">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+         </button>
+       </div>
+  
+  
+       <div *ngIf="celular1">
         <mat-form-field appearance="standard">
-         <mat-label>WhatsApp</mat-label>
-         <div>  <input matInput formControlName="whatsApp"
+         <mat-label>Celular 1</mat-label>
+         <div>  <input matInput formControlName="celular1"
          id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
        </mat-form-field>
-
-       <button mat-icon-button matTooltip="Clique para remover o campo" color="warn">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
-       </button>
-     </div>
-
-
-     <div *ngIf="mudaDiv > 2">
-      <mat-form-field appearance="standard">
-       <mat-label>Celular</mat-label>
-       <div>  <input matInput formControlName="celular1"
-       id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-     </mat-form-field>
-
-     <button mat-icon-button matTooltip="Clique para remover o campo" color="warn">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
-     </button>
-   </div>
-
-   <div *ngIf="mudaDiv > 3">
-    <mat-form-field appearance="standard">
-     <mat-label>Celular</mat-label>
-     <div>  <input matInput formControlName="celular2"
-     id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-   </mat-form-field>
-
-   <button mat-icon-button matTooltip="Clique para remover o campo" color="warn">
-    <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
-   </button>
- </div>
- 
-    </div>
-
-    <div class="row">
-
-      <div *ngIf="mudaDiv > 4">
-        <mat-form-field appearance="standard">
-         <mat-label>Celular</mat-label>
-         <div>  <input matInput formControlName="celular3"
-         id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
-       </mat-form-field>
-
-       <button mat-icon-button matTooltip="Clique para remover o campo" color="warn">
+  
+       <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular1')">
         <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
        </button>
      </div>
   
-     <div *ngIf="mudaDiv > 5">
+     <div *ngIf="celular2">
       <mat-form-field appearance="standard">
-       <mat-label>Celular</mat-label>
-       <div>  <input matInput formControlName="celular4"
+       <mat-label>Celular 2</mat-label>
+       <div>  <input matInput formControlName="celular2"
        id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
      </mat-form-field>
-
-     <button mat-icon-button matTooltip="Clique para remover o campo" color="warn">
+  
+     <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular2')">
       <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
      </button>
    </div>
-     
-   <div *ngIf="mudaDiv > 6">
+
+   <div *ngIf="celular3">
     <mat-form-field appearance="standard">
-     <mat-label>Celular</mat-label>
-     <div>  <input matInput  formControlName="celular5"
+     <mat-label>Celular 3</mat-label>
+     <div>  <input matInput formControlName="celular3"
      id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
    </mat-form-field>
 
-   <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" >
+   <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular3')">
     <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
    </button>
-  </div>
+ </div>
+
+ <div *ngIf="celular4">
+  <mat-form-field appearance="standard">
+   <mat-label>Celular 4</mat-label>
+   <div>  <input matInput formControlName="celular4"
+   id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+ </mat-form-field>
+
+ <button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular4')">
+  <mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+ </button>
+</div>
+ 
+<div *ngIf="celular5">
+<mat-form-field appearance="standard">
+ <mat-label>Celular 5</mat-label>
+ <div>  <input matInput  formControlName="celular5"
+ id="residencial" mask="(00) 00000-0000" [showMaskTyped] = "false"> </div>
+</mat-form-field>
+
+<button mat-icon-button matTooltip="Clique para remover o campo" color="warn" (click)="removeCampo('celular5')">
+<mat-icon aria-hidden="false" aria-label="Example home icon">clear</mat-icon>
+</button>
+</div>
+   
+          
     </div>
 
+   
     <div class="row">
 
         <mat-form-field appearance="standard">
