@@ -1,8 +1,8 @@
 
 <div layout="row" layout-wrap>
   <header>
-    <strong><h1> Edita cadastro </h1></strong>
-    <p> Aqui você pode alterar seu cadastro. </p>
+    <strong><h1> Editar cadastro </h1></strong>
+    <p> Aqui você pode editar o seu cadastro. </p>
 </header>
   <form class="example-form" [formGroup]="FormGroupCliente">
   
@@ -184,9 +184,15 @@
     </div>
 
     <section>
-        <div class="example-button-row">
-            <button mat-raised-button type="reset" color="primary"(click)='editarCliente()' [disabled]="!FormGroupCliente.valid">Editar</button>
-          <!-- <a mat-raised-button href="" type="submit"></a> -->
+        <!-- <div class="example-button-row"> -->
+        <div class="button-container">
+          <div class="spinner-container" *ngIf="loading">
+            <mat-spinner diameter="24" color="primary"></mat-spinner>
+          </div>
+            <button mat-raised-button type="button" color="primary"(click)='editarCliente()' [disabled]="!FormGroupCliente.valid || loading"
+            >Editar
+          </button>
+      
         </div>
     </section>  
 </form>

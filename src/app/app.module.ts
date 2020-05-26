@@ -28,6 +28,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { CoreModule } from './core/core.module';
 import { CoreFeaturesModule } from './core-features/core-features.module';
 import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 // import { JamComponent } from './jam.component';
 // import {FormsModule} from '@ angular/forms';
 
@@ -71,7 +72,8 @@ import {MatCardModule} from '@angular/material/card';
     MatTableModule,
     MatDialogModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -31,6 +31,8 @@ export class EditarComponent implements OnInit {
   celular4 : boolean = false;
   celular5 : boolean = false; 
 
+  loading = false;
+
   constructor(private route: ActivatedRoute, private router: Router,private clinicaService: ClinicaService, private service: ClinicaService,
     private cepService : CepService, private formBuilder: FormBuilder, private _snackBar: MatSnackBar,
     public dialog: MatDialog) { }
@@ -44,18 +46,60 @@ export class EditarComponent implements OnInit {
   buscaePopulaCliente(id: number) {
     this.clinicaService.obterClientesPorId(id).subscribe(cliente => 
       {
+        // console.log('cliente', cliente);
+        
         this.cliente = cliente;
+
+        // console.log('clienteLocal', this.cliente);
+
         //setando no formulario reativo os valores do id correspondente
         this.FormGroupCliente.controls["nome"].setValue(this.cliente.nome);
         this.FormGroupCliente.controls["cpf"].setValue(this.cliente.cpf);
-        this.FormGroupCliente.controls["residencial"].setValue(this.cliente.residencial);
         this.FormGroupCliente.controls["cep"].setValue(this.cliente.cep);
         this.FormGroupCliente.controls["logradouro"].setValue(this.cliente.logradouro);
         this.FormGroupCliente.controls["bairro"].setValue(this.cliente.bairro);
         this.FormGroupCliente.controls["uf"].setValue(this.cliente.uf);
         this.FormGroupCliente.controls["localidade"].setValue(this.cliente.localidade);
         this.FormGroupCliente.controls["numero"].setValue(this.cliente.numero);
-        this.FormGroupCliente.controls["complemento"].setValue(this.cliente.complemento);
+        this.FormGroupCliente.controls["email"].setValue(this.cliente.email);
+        this.FormGroupCliente.controls["residencial"].setValue(this.cliente.residencial);
+        this.FormGroupCliente.controls["complemento"].setValue(this.cliente.complemento)
+
+        if(!isNullOrUndefined(this.cliente.comercial) && this.cliente.comercial != ''){
+          this.FormGroupCliente.controls["comercial"].setValue(this.cliente.comercial);
+          this.comercial = true;
+        }
+
+        if(!isNullOrUndefined(this.cliente.whatsApp) && this.cliente.whatsApp != ''){
+          this.FormGroupCliente.controls["whatsApp"].setValue(this.cliente.whatsApp);
+          this.whatsapp = true;
+        }
+
+        if(!isNullOrUndefined(this.cliente.celular1) && this.cliente.celular1 != ''){
+          this.FormGroupCliente.controls["celular1"].setValue(this.cliente.celular1);
+          this.celular1 = true;
+        }
+
+        if(!isNullOrUndefined(this.cliente.celular2) && this.cliente.celular2 != ''){
+          this.FormGroupCliente.controls["celular2"].setValue(this.cliente.celular2);
+          this.celular2 = true;
+        }
+
+        if(!isNullOrUndefined(this.cliente.celular3) && this.cliente.celular3 != ''){
+          this.FormGroupCliente.controls["celular3"].setValue(this.cliente.celular3);
+          this.celular3 = true;
+        }
+
+        if(!isNullOrUndefined(this.cliente.celular4) && this.cliente.celular4 != ''){
+          this.FormGroupCliente.controls["celular4"].setValue(this.cliente.celular4);
+          this.celular4 = true;
+        }
+
+        if(!isNullOrUndefined(this.cliente.celular5) && this.cliente.celular5 != ''){
+          this.FormGroupCliente.controls["celular5"].setValue(this.cliente.celular5);
+          this.celular5 = true;
+        }
+
         this.cpfEmUso = cliente.cpf;
       },
       error => console.log(error));
@@ -75,6 +119,10 @@ export class EditarComponent implements OnInit {
         this.FormGroupCliente.controls['uf'].setValue(endereco.uf);
       }
       else{
+        this.FormGroupCliente.controls['bairro'].setValue('');
+        this.FormGroupCliente.controls['logradouro'].setValue('');
+        this.FormGroupCliente.controls['localidade'].setValue('');
+        this.FormGroupCliente.controls['uf'].setValue('');
         this.openSnackBar(`Cep ${this.cep} não encontrado`,"Coloque um CEP valido!");
         this.cepElement.nativeElement.focus();
         this.FormGroupCliente.controls['cep'].setErrors({'incorrect': true});
@@ -102,7 +150,7 @@ export class EditarComponent implements OnInit {
       cpf: new FormControl('',[Validators.required,Validators.maxLength(11),]),
       residencial: new FormControl('',[Validators.maxLength(11)]),
       cep: new FormControl('',[Validators.required, Validators.maxLength(11)]),
-      logradouro: new FormControl({value: '', disabled: true}),
+      logradouro: new FormControl({value: '', disabled: true},[Validators.required]),
       complemento: new FormControl('',[Validators.maxLength(11)]),
       bairro: new FormControl({value: '', disabled: true}),
       localidade: new FormControl({value: '', disabled: true}),
@@ -115,6 +163,7 @@ export class EditarComponent implements OnInit {
       celular2: new FormControl('',[Validators.maxLength(11)]),
       celular3: new FormControl('',[Validators.maxLength(11)]),
       celular4: new FormControl('',[Validators.maxLength(11)]),
+      celular5: new FormControl('',[Validators.maxLength(11)]),
     } );
   }
   habilitaDiv(){
@@ -157,6 +206,7 @@ export class EditarComponent implements OnInit {
   }
   editarCliente(){
 
+    this.loading = true;
     this.cliente.nome = this.FormGroupCliente.get('nome').value;
     this.cliente.cpf = this.FormGroupCliente.get('cpf').value;
     this.cliente.residencial = this.FormGroupCliente.get('residencial').value;
@@ -165,27 +215,18 @@ export class EditarComponent implements OnInit {
     this.cliente.logradouro = this.FormGroupCliente.get('logradouro').value;
     this.cliente.localidade = this.FormGroupCliente.get('localidade').value;
     this.cliente.uf = this.FormGroupCliente.get('uf').value;
-    this.cliente.numero = this.FormGroupCliente.get('numero').value;
-    
-        
-    if(!this.cliente.nome || !this.cliente.cpf || !this.cliente.residencial || !this.cliente.bairro || !this.cliente.cep
-       || !this.cliente.localidade || !this.cliente.logradouro || !this.cliente.uf || !this.cliente.numero){
-      this.openSnackBar('Por favor , preencha todos os campos','Preencha!');
-      
-    }else{
-      this.clinicaService.editarCliente(this.cliente).subscribe(x => { 
+    this.cliente.email = this.FormGroupCliente.get('numero').value;
+    this.cliente.complemento = this.FormGroupCliente.get('complemento').value;
+    this.cliente.comercial = this.FormGroupCliente.get('comercial').value;
+    this.cliente.whatsApp = this.FormGroupCliente.get('whatsApp').value;
+    this.cliente.celular1 = this.FormGroupCliente.get('celular1').value;
+    this.cliente.celular2 = this.FormGroupCliente.get('celular2').value;
+    this.cliente.celular3 = this.FormGroupCliente.get('celular3').value;
+    this.cliente.celular4 = this.FormGroupCliente.get('celular4').value;
+    this.cliente.celular5 = this.FormGroupCliente.get('celular5').value;
 
-        console.log("api", x);
-        // alert("Editado com sucesso!!");
-        this.openSnackBar('Registro editado com sucesso.','Editado!');
-       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=> 
-       this.router.navigate(['consultar']));
-      },
-      error => {
-        console.log(error);
-      this.openSnackBar(error.error.message,"Mude o CPF para prosseguir!");
-      }
-      )};
+    this.openDialog(this.cliente);
+    
   }
   removeCampo(idBotao){
 
@@ -222,10 +263,6 @@ export class EditarComponent implements OnInit {
     }
   }
 
-  editarTelefoneresidencial(){
-    
-  }
-
   openSnackBar(mensagem: string, acao: string) {
   this._snackBar.open(mensagem, acao, {
     duration: 2000,
@@ -235,7 +272,7 @@ export class EditarComponent implements OnInit {
   openDialog(cliente): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
       width: '250px',
-      data: {cliente: cliente, mensagem: `Deseja manter contato pelo e-mail?`, acao: "manterContato", isManterContato: false}
+      data: {cliente: cliente, mensagem: `Deseja continuar mantendo contato pelo e-mail?`, acao: "manterContato", isManterContato: false}
     });
 
   dialogRef.afterClosed().subscribe(result => {
@@ -249,16 +286,18 @@ export class EditarComponent implements OnInit {
       else{
         cliente.isManterContato = true;
       }
-      this.service.salvarCliente(this.cliente).subscribe (
-          () => {
-            
-           this.openSnackBar('Registro cadastrado com sucesso.','Cadastrado!');
-           this.criarFormulario(); 
-         },
-         error => {
-           console.log(error);
-           this.openSnackBar(error.error.message,"Mude o CPF para prosseguir!");
-         });
+      this.clinicaService.editarCliente(this.cliente).subscribe(x => { 
+
+        // console.log("api", x);
+        // alert("Editado com sucesso!!");
+        this.openSnackBar('Registro editado com sucesso.','Editado!');
+       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=> 
+       this.router.navigate(['consultar']));
+      },
+      error => {
+        console.log(error);
+      this.openSnackBar(error.error.message,"Mude o CPF para prosseguir!");
+      });
     }
     
   });

@@ -38,6 +38,8 @@ export class CadastrarComponent implements OnInit {
   celular4 : boolean = false;
   celular5 : boolean = false; 
 
+  loading = false;
+
   constructor(private formBuilder: FormBuilder, private service: ClinicaService,
     private _snackBar: MatSnackBar, private cepService : CepService,public dialog: MatDialog ) {
 
@@ -56,7 +58,7 @@ export class CadastrarComponent implements OnInit {
       cpf: new FormControl('',[Validators.required,Validators.maxLength(11),]),
       residencial: new FormControl('',[Validators.maxLength(11)]),
       cep: new FormControl('',[Validators.required, Validators.maxLength(11)]),
-      logradouro: new FormControl({value: '', disabled: true}),
+      logradouro: new FormControl({value: '', disabled: true},[Validators.required]),
       complemento: new FormControl('',[Validators.maxLength(11)]),
       bairro: new FormControl({value: '', disabled: true}),
       localidade: new FormControl({value: '', disabled: true}),
@@ -69,6 +71,7 @@ export class CadastrarComponent implements OnInit {
       celular2: new FormControl('',[Validators.maxLength(11)]),
       celular3: new FormControl('',[Validators.maxLength(11)]),
       celular4: new FormControl('',[Validators.maxLength(11)]),
+      celular5: new FormControl('',[Validators.maxLength(11)]),
     } );
   }
   matcher = new MyErrorStateMatcher();
@@ -174,12 +177,14 @@ export class CadastrarComponent implements OnInit {
     cliente.celular2 = this.FormGroupCliente.get("celular2").value;
     cliente.celular3 = this.FormGroupCliente.get("celular3").value;
     cliente.celular4 = this.FormGroupCliente.get("celular4").value;
+    cliente.celular5 = this.FormGroupCliente.get('celular5').value;
   
     return cliente;
   }
 
  //chama o servico no angular que chama a API atraves do contexto http para salvar no banco de dados
 salvarCliente(){
+  this.loading = true;
   this.cliente = this.popularCliente();
   
   //
@@ -202,6 +207,10 @@ buscarCep(){
       this.FormGroupCliente.controls['uf'].setValue(endereco.uf);
     }
     else{
+      this.FormGroupCliente.controls['bairro'].setValue('');
+        this.FormGroupCliente.controls['logradouro'].setValue('');
+        this.FormGroupCliente.controls['localidade'].setValue('');
+        this.FormGroupCliente.controls['uf'].setValue('');
       this.openSnackBar(`Cep ${this.cep} não encontrado`,"Coloque um CEP valido!");
       this.cepElement.nativeElement.focus();
       this.FormGroupCliente.controls['cep'].setErrors({'incorrect': true});
@@ -253,10 +262,12 @@ openDialog(cliente): void {
           () => {
             
            this.openSnackBar('Registro cadastrado com sucesso.','Cadastrado!');
+           this.loading = false;
            this.criarFormulario(); 
          },
          error => {
            console.log(error);
+           this.loading = false;
            this.openSnackBar(error.error.message,"Mude o CPF para prosseguir!");
          });
     }

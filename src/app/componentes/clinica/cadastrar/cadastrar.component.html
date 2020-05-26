@@ -183,11 +183,23 @@
             </mat-form-field>
     </div>
 
-    <section>
+    <!-- <section>
         <div class="example-button-row">
             <button mat-raised-button type="reset" color="primary"(click)='salvarCliente()' [disabled]="!FormGroupCliente.valid">Cadastrar</button>
-          <!-- <a mat-raised-button href="" type="submit"></a> -->
         </div>
-    </section>  
+    </section>   -->
+
+    <section>
+      <!-- <div class="example-button-row"> -->
+      <div class="button-container">
+        <div class="spinner-container" *ngIf="loading">
+          <mat-spinner diameter="24" color="primary"></mat-spinner>
+        </div>
+          <button mat-raised-button type="button" color="primary"(click)='salvarCliente()' [disabled]="!FormGroupCliente.valid || loading"
+          >Cadastrar
+        </button>
+    
+      </div>
+  </section>  
 </form>
 </div>

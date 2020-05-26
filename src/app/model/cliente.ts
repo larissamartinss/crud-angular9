@@ -15,6 +15,7 @@ export class Cliente  {
     public celular2: string;
     public celular3: string;
     public celular4: string;
+    public celular5: string;
     public data: DatePipe;  
     public actions: MatButton;
     public cep: string;
